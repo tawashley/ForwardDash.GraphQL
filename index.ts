@@ -20,7 +20,9 @@ const server = new ApolloServer({
 server.applyMiddleware({
     app,
     path: '/graphql',
-    cors: true
+    cors: {
+        origin: 'https://forward-dash-webapp.herokuapp.com'
+    }
 })
 
 app.listen(port, () => {
