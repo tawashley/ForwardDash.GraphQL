@@ -1,5 +1,5 @@
-const express = require('express');
-const { ApolloServer, gql } = require('apollo-server-express')
+import express from 'express'
+import { ApolloServer, gql } from 'apollo-server-express'
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -23,6 +23,3 @@ app.listen(port, () => {
     console.log(`🚀 Server ready`);
     console.log(`Playground can be accessed at http://localhost:${port}/graphql`)
 })
-// app.listen({ port }).then(({ url }) => {
-//     console.log(`🚀 Server ready at ${url}`);
-// });
