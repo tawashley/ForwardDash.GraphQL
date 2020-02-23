@@ -14,7 +14,8 @@ const server = new ApolloServer({
     Query: {
       hello: () => 'Hello world!',
     },
-  }
+  },
+  playground: true
 })
 
 server.applyMiddleware({ app })
