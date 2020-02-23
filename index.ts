@@ -21,7 +21,7 @@ server.applyMiddleware({
     app,
     path: '/graphql',
     cors: {
-        origin: `https://localhost:${port}`
+        origin: `https://forward-dash-webapp.herokuapp.com`
     }
 })
 
