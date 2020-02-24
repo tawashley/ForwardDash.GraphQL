@@ -98,11 +98,9 @@ const WeatherConnector = {
 
 // Weather model
 const WeatherModel = {
-    getCurrentForecast: async (location: string) => {
-        const response = await WeatherConnector.getCurrentForecase(location)
+    mapCurrentForecastResponse: (response: CurrentWeatherResponse) => {
         const { current } = response
 
-        // TODO - map condition.code to a string
         return {
             temperature: {
                 celsius: current.temp_c,
@@ -142,6 +140,11 @@ const WeatherModel = {
             isDaytime: current.is_day,
             uvIndex: current.uv,
         }
+    },
+    getCurrentForecast: async (location: string) => {
+        const response = await WeatherConnector.getCurrentForecase(location)
+
+        return WeatherModel.mapCurrentForecastResponse(response)
     }
 }
 
