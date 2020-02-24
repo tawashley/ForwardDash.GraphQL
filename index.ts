@@ -12,11 +12,11 @@ const typeDefs =  gql`
         name: String!
         region: String!
         country: String!
-        lat: Float!,
-        lon: Float!,
-        tz_id: String!
-        localtime_epoch: Int!,
-        localtime: String!
+        latitude: Float!,
+        longitude: Float!,
+        timezone: String!
+        timeEpoch: Int!,
+        timeFormatted: String!
     }
 
     type WeatherCondition {
