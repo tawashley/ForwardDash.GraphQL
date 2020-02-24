@@ -78,7 +78,7 @@ const typeDefs =  gql`
 
     # Query Schema
     type Query {
-        weather(location: String!): Weather
+        weather(location: String!): Weather!
     }
 `
 
