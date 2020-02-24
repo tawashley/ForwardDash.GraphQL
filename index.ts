@@ -66,7 +66,7 @@ const typeDefs =  gql`
         rain: WeatherRain!
         humidityPercentage: Int!
         cloudCoverPercentage: Int!
-        isDaytime: Int!
+        isDaytime: Boolean!
         uvIndex: Float!
 
     }
@@ -94,20 +94,55 @@ const WeatherConnector = {
         url.searchParams.append('key', '')
         url.searchParams.append('q', location)
 
-        const response = await fetch(url.toString()).then((response) => response.json())
-
-        console.log({ response })
-
-        return {
-            isDaytime: false
-        }
+        return fetch(url.toString()).then((response) => response.json())
     }
 }
 
 // Weather model
 const WeatherModel = {
     getCurrentForecast: async (location: string) => {
-        return WeatherConnector.getCurrentForecase(location)
+        const response = await WeatherConnector.getCurrentForecase(location)
+
+        // TODO - map condition.code to a string
+        return {
+            temperature: {
+                celsius: response.current.temp_c,
+                fahrenheit: response.current.temp_f
+            },
+            feelsLike: {
+                celsius: response.current.feelslike_c,
+                fahrenheit: response.current.feelslike_f
+            },
+            condition: {
+                text: response.current.condition.text,
+                iconSrc: response.current.condition.icon,
+                code: response.current.condition.code
+            },
+            wind: {
+                mph: response.current.wind_mph,
+                kph: response.current.wind_kph,
+                direction: {
+                  degree: response.current.wind_degree,
+                  compass: response.current.wind_dir
+                }
+            },
+            gust: {
+                mph: response.current.gust_mph,
+                kph: response.current.gust_kph
+            },
+            pressure: {
+                millibars: response.current.pressure_mb,
+                inches: response.current.pressure_in
+            },
+            rain: {
+                millimeters: response.current.precip_mm,
+                inches: response.current.precip_in
+            },
+            humidityPercentage: response.current.humidity,
+            cloudCoverPercentage: response.current.cloud,
+            isDaytime: response.current.is_day,
+            uvIndex: response.current.uv,
+        }
     }
 }
 
