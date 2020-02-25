@@ -1,11 +1,16 @@
 import { GQLWeatherCurrent } from '../types/index'
 
+import { conditionsData } from '../connector/weather-api-conditions'
 import { WeatherConnector } from '../connector/weather-api.connector'
-import { CurrentWeatherResponse } from '../connector/types/weather-api'
+import { CurrentWeatherResponse, ConditionListItem } from '../connector/types/weather-api'
 
 export const WeatherModel = {
+    getCurrentConditionFromCode: (conditionCode: number) => {
+        return conditionsData.find((condition) => condition.code === conditionCode) as ConditionListItem
+    },
     mapCurrentForecastResponse: (response: CurrentWeatherResponse): GQLWeatherCurrent => {
         const { current } = response
+        const { condition } = current
 
         return {
             temperature: {
@@ -17,9 +22,9 @@ export const WeatherModel = {
                 fahrenheit: current.feelslike_f
             },
             condition: {
-                text: current.condition.text,
-                iconSrc: current.condition.icon,
-                code: current.condition.code
+                text: condition.text,
+                code: condition.code,
+                iconSrc: condition.icon
             },
             wind: {
                 mph: current.wind_mph,
@@ -48,7 +53,7 @@ export const WeatherModel = {
         }
     },
     getCurrentForecast: async (location: string): Promise<GQLWeatherCurrent> => {
-        const response = await WeatherConnector.getCurrentForecase(location)
+        const response = await WeatherConnector.getCurrentForecast(location)
 
         return WeatherModel.mapCurrentForecastResponse(response)
     }

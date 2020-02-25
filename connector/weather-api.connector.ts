@@ -15,7 +15,7 @@ const makeRequest = (path: string, location: string) => {
 }
 
 export const WeatherConnector = {
-    getCurrentForecase: (location: string): Promise<CurrentWeatherResponse> => {
+    getCurrentForecast: async (location: string): Promise<CurrentWeatherResponse> => {
         return makeRequest('current', location)
     }
 }

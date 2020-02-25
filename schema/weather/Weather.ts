@@ -12,8 +12,8 @@ const weather = `
 
     type WeatherCondition {
         text: String!
+        code: Int!
         iconSrc: String!
-        code: Int! #This code can be mapped from https://www.weatherapi.com/docs/conditions.json e.g. 1000 means "Sunny"
     }
 
     type WeatherTemperature {

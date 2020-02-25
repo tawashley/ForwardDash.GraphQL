@@ -54,8 +54,8 @@ export interface GQLWeatherTemperature {
 
 export interface GQLWeatherCondition {
   text: string;
-  iconSrc: string;
   code: number;
+  iconSrc: string;
 }
 
 export interface GQLWeatherWind {
@@ -252,19 +252,19 @@ export interface WeatherTemperatureToFahrenheitResolver<TParent = any, TResult =
 
 export interface GQLWeatherConditionTypeResolver<TParent = any> {
   text?: WeatherConditionToTextResolver<TParent>;
-  iconSrc?: WeatherConditionToIconSrcResolver<TParent>;
   code?: WeatherConditionToCodeResolver<TParent>;
+  iconSrc?: WeatherConditionToIconSrcResolver<TParent>;
 }
 
 export interface WeatherConditionToTextResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface WeatherConditionToIconSrcResolver<TParent = any, TResult = any> {
+export interface WeatherConditionToCodeResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface WeatherConditionToCodeResolver<TParent = any, TResult = any> {
+export interface WeatherConditionToIconSrcResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
