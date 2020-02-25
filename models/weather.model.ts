@@ -44,7 +44,7 @@ export const WeatherModel = {
             humidityPercentage: current.humidity,
             cloudCoverPercentage: current.cloud,
             isDaytime: !!current.is_day,
-            uvIndex: current.uv,
+            uvIndex: current.uv
         }
     },
     getCurrentForecast: async (location: string): Promise<GQLWeatherCurrent> => {
