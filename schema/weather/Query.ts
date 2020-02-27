@@ -2,14 +2,14 @@ import { QueryToWeatherResolver, WeatherToCurrentResolver, WeatherToForecastReso
 import { WeatherModel } from '../../models/weather.model'
 
 export const Query = `
+    extend type Query {
+        weather(location: String!): Weather!
+    }
+
     type Weather {
         location: WeatherLocation!
         current: WeatherCurrent!
         forecast(days: String!): [WeatherForecast!]!
-    }
-
-    extend type Query {
-        weather(location: String!): Weather!
     }
 `
 

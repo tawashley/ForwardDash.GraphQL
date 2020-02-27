@@ -46,13 +46,6 @@ export interface CurrentWeatherResponse {
   current: WeatherCurrent;
 }
 
-export interface ConditionListItem {
-  code: number;
-  day: string;
-  night: string;
-  icon: number;
-}
-
 interface WeatherAstro {
     sunrise: string
     sunset: string
@@ -92,5 +85,3 @@ export interface ForecastResponse {
         forecastday: DayForecast[]
     }
 }
-
-export type ConditionsList = ConditionListItem[];

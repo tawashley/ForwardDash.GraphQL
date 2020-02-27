@@ -1,13 +1,9 @@
 import { GQLWeatherCurrent, GQLWeatherForecast } from '../types/index'
 
-import { conditionsData } from '../connector/weather-api-conditions'
 import { WeatherConnector } from '../connector/weather-api.connector'
-import { CurrentWeatherResponse, ForecastResponse, ConditionListItem } from '../connector/types/weather-api'
+import { CurrentWeatherResponse, ForecastResponse } from '../connector/types/weather-api'
 
 export const WeatherModel = {
-    getCurrentConditionFromCode: (conditionCode: number) => {
-        return conditionsData.find((condition) => condition.code === conditionCode) as ConditionListItem
-    },
     mapCurrentForecastResponse: (response: CurrentWeatherResponse): GQLWeatherCurrent => {
         const { current } = response
         const { condition } = current
