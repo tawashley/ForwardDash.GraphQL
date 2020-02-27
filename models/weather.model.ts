@@ -1,8 +1,8 @@
-import { GQLWeatherCurrent } from '../types/index'
+import { GQLWeatherCurrent, GQLWeatherForecast } from '../types/index'
 
 import { conditionsData } from '../connector/weather-api-conditions'
 import { WeatherConnector } from '../connector/weather-api.connector'
-import { CurrentWeatherResponse, ConditionListItem } from '../connector/types/weather-api'
+import { CurrentWeatherResponse, ForecastResponse, ConditionListItem } from '../connector/types/weather-api'
 
 export const WeatherModel = {
     getCurrentConditionFromCode: (conditionCode: number) => {
@@ -52,9 +52,46 @@ export const WeatherModel = {
             uvIndex: current.uv
         }
     },
+    mapDaysForecastResponse: ({ forecast }: ForecastResponse): GQLWeatherForecast[]  => {
+        return forecast.forecastday.map<GQLWeatherForecast>((forecast) => {
+            const { astro, date, date_epoch, day  } = forecast
+
+            return  {
+                minTemperature: {
+                    celsius: day.mintemp_c,
+                    fahrenheit: day.mintemp_f
+                },
+                maxTemperature: {
+                    celsius: day.mintemp_c,
+                    fahrenheit: day.mintemp_f
+                },
+                averageTemperature: {
+                    celsius: day.avgtemp_c,
+                    fahrenheit: day.avgtemp_f
+                },
+                condition: {
+                    iconSrc: day.condition.icon,
+                    text: day.condition.text,
+                    code: day.condition.code
+                },
+                date,
+                dateEpoch: date_epoch,
+                moonrise: astro.moonrise,
+                moonset: astro.moonset,
+                sunrise: astro.sunrise,
+                sunset: astro.sunset,
+                uvIndex: day.uv
+            }
+        })
+    },
     getCurrentForecast: async (location: string): Promise<GQLWeatherCurrent> => {
         const response = await WeatherConnector.getCurrentForecast(location)
 
         return WeatherModel.mapCurrentForecastResponse(response)
+    },
+    getDaysForecast: async (location: string, days: string): Promise<GQLWeatherForecast[]> => {
+        const response = await WeatherConnector.getDaysForecast(location, days)
+
+        return WeatherModel.mapDaysForecastResponse(response)
     }
 }

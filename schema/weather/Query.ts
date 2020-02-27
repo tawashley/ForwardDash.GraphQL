@@ -1,10 +1,11 @@
-import { QueryToWeatherResolver, WeatherToCurrentResolver } from '../../types/index'
+import { QueryToWeatherResolver, WeatherToCurrentResolver, WeatherToForecastResolver } from '../../types/index'
 import { WeatherModel } from '../../models/weather.model'
 
 export const Query = `
     type Weather {
         location: WeatherLocation!
         current: WeatherCurrent!
+        forecast(days: String!): [WeatherForecast!]!
     }
 
     extend type Query {
@@ -12,12 +13,16 @@ export const Query = `
     }
 `
 
+const weather: QueryToWeatherResolver = (root, { location }, context) => {
+    return location
+}
+
 const current: WeatherToCurrentResolver = async (location, args, context) => {
     return WeatherModel.getCurrentForecast(location)
 }
 
-const weather: QueryToWeatherResolver = (root, { location }, context) => {
-    return location
+const forecast: WeatherToForecastResolver = async (location, { days }, context) => {
+    return WeatherModel.getDaysForecast(location, days)
 }
 
 export const queryResolver = {
@@ -25,6 +30,7 @@ export const queryResolver = {
       weather
     },
     Weather: {
-        current
+        current,
+        forecast
     }
 }

@@ -20,6 +20,7 @@ export interface GQLQuery {
 export interface GQLWeather {
   location: GQLWeatherLocation;
   current: GQLWeatherCurrent;
+  forecast: Array<GQLWeatherForecast>;
 }
 
 export interface GQLWeatherLocation {
@@ -84,6 +85,20 @@ export interface GQLWeatherRain {
   inches: number;
 }
 
+export interface GQLWeatherForecast {
+  date: string;
+  dateEpoch: number;
+  maxTemperature: GQLWeatherTemperature;
+  minTemperature: GQLWeatherTemperature;
+  averageTemperature: GQLWeatherTemperature;
+  condition: GQLWeatherCondition;
+  uvIndex: number;
+  sunrise: string;
+  sunset: string;
+  moonrise: string;
+  moonset: string;
+}
+
 /*********************************
  *                               *
  *         TYPE RESOLVERS        *
@@ -106,6 +121,7 @@ export interface GQLResolver {
   WeatherVelocity?: GQLWeatherVelocityTypeResolver;
   WeatherPressure?: GQLWeatherPressureTypeResolver;
   WeatherRain?: GQLWeatherRainTypeResolver;
+  WeatherForecast?: GQLWeatherForecastTypeResolver;
 }
 export interface GQLQueryTypeResolver<TParent = any> {
   name?: QueryToNameResolver<TParent>;
@@ -126,6 +142,7 @@ export interface QueryToWeatherResolver<TParent = any, TResult = any> {
 export interface GQLWeatherTypeResolver<TParent = any> {
   location?: WeatherToLocationResolver<TParent>;
   current?: WeatherToCurrentResolver<TParent>;
+  forecast?: WeatherToForecastResolver<TParent>;
 }
 
 export interface WeatherToLocationResolver<TParent = any, TResult = any> {
@@ -134,6 +151,13 @@ export interface WeatherToLocationResolver<TParent = any, TResult = any> {
 
 export interface WeatherToCurrentResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface WeatherToForecastArgs {
+  days: string;
+}
+export interface WeatherToForecastResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: WeatherToForecastArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
 export interface GQLWeatherLocationTypeResolver<TParent = any> {
@@ -335,5 +359,63 @@ export interface WeatherRainToMillimetersResolver<TParent = any, TResult = any> 
 }
 
 export interface WeatherRainToInchesResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface GQLWeatherForecastTypeResolver<TParent = any> {
+  date?: WeatherForecastToDateResolver<TParent>;
+  dateEpoch?: WeatherForecastToDateEpochResolver<TParent>;
+  maxTemperature?: WeatherForecastToMaxTemperatureResolver<TParent>;
+  minTemperature?: WeatherForecastToMinTemperatureResolver<TParent>;
+  averageTemperature?: WeatherForecastToAverageTemperatureResolver<TParent>;
+  condition?: WeatherForecastToConditionResolver<TParent>;
+  uvIndex?: WeatherForecastToUvIndexResolver<TParent>;
+  sunrise?: WeatherForecastToSunriseResolver<TParent>;
+  sunset?: WeatherForecastToSunsetResolver<TParent>;
+  moonrise?: WeatherForecastToMoonriseResolver<TParent>;
+  moonset?: WeatherForecastToMoonsetResolver<TParent>;
+}
+
+export interface WeatherForecastToDateResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface WeatherForecastToDateEpochResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface WeatherForecastToMaxTemperatureResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface WeatherForecastToMinTemperatureResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface WeatherForecastToAverageTemperatureResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface WeatherForecastToConditionResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface WeatherForecastToUvIndexResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface WeatherForecastToSunriseResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface WeatherForecastToSunsetResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface WeatherForecastToMoonriseResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface WeatherForecastToMoonsetResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }

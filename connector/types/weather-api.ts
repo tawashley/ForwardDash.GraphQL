@@ -53,4 +53,44 @@ export interface ConditionListItem {
   icon: number;
 }
 
+interface WeatherAstro {
+    sunrise: string
+    sunset: string
+    moonrise: string
+    moonset: string
+}
+
+interface WeatherDay {
+    maxtemp_c: number
+    maxtemp_f: number
+    mintemp_c: number
+    mintemp_f: number
+    avgtemp_c: number
+    avgtemp_f: number
+    maxwind_mph: number
+    maxwind_kph: number
+    totalprecip_mm: number
+    totalprecip_in: number
+    avgvis_km: number
+    avgvis_miles: number
+    avghumidity: number
+    condition: WeatherCondition,
+    uv: number
+}
+
+interface DayForecast {
+    date: string
+    date_epoch: number,
+    day: WeatherDay,
+    astro: WeatherAstro
+}
+
+export interface ForecastResponse {
+    location: WeatherLocation
+    current: WeatherCurrent
+    forecast: {
+        forecastday: DayForecast[]
+    }
+}
+
 export type ConditionsList = ConditionListItem[];
