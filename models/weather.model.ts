@@ -5,10 +5,20 @@ import { CurrentWeatherResponse, ForecastResponse } from '../connector/types/wea
 
 export const WeatherModel = {
     mapCurrentForecastResponse: (response: CurrentWeatherResponse): GQLWeatherCurrent => {
-        const { current } = response
+        const { current, location } = response
         const { condition } = current
 
         return {
+            location: {
+                country: location.country,
+                name: location.name,
+                region: location.region,
+                latitude: location.lat,
+                longitude: location.lon,
+                timeEpoch: location.localtime_epoch,
+                timeFormatted: location.localtime,
+                timezone: location.tz_id
+            },
             temperature: {
                 celsius: current.temp_c,
                 fahrenheit: current.temp_f

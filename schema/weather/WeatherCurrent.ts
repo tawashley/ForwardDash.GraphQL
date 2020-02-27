@@ -1,5 +1,6 @@
 const weather = `
     type WeatherCurrent {
+        location: WeatherLocation!
         temperature: WeatherTemperature!
         feelsLike: WeatherTemperature!
         condition: WeatherCondition!

@@ -7,7 +7,6 @@ export const Query = `
     }
 
     type Weather {
-        location: WeatherLocation!
         current: WeatherCurrent!
         forecast(days: String!): [WeatherForecast!]!
     }

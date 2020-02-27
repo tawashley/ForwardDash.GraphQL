@@ -18,23 +18,12 @@ export interface GQLQuery {
 }
 
 export interface GQLWeather {
-  location: GQLWeatherLocation;
   current: GQLWeatherCurrent;
   forecast: Array<GQLWeatherForecast>;
 }
 
-export interface GQLWeatherLocation {
-  name: string;
-  region: string;
-  country: string;
-  latitude: number;
-  longitude: number;
-  timezone: string;
-  timeEpoch: number;
-  timeFormatted: string;
-}
-
 export interface GQLWeatherCurrent {
+  location: GQLWeatherLocation;
   temperature: GQLWeatherTemperature;
   feelsLike: GQLWeatherTemperature;
   condition: GQLWeatherCondition;
@@ -46,6 +35,17 @@ export interface GQLWeatherCurrent {
   cloudCoverPercentage: number;
   isDaytime: boolean;
   uvIndex: number;
+}
+
+export interface GQLWeatherLocation {
+  name: string;
+  region: string;
+  country: string;
+  latitude: number;
+  longitude: number;
+  timezone: string;
+  timeEpoch: number;
+  timeFormatted: string;
 }
 
 export interface GQLWeatherTemperature {
@@ -112,8 +112,8 @@ export interface GQLWeatherForecast {
 export interface GQLResolver {
   Query?: GQLQueryTypeResolver;
   Weather?: GQLWeatherTypeResolver;
-  WeatherLocation?: GQLWeatherLocationTypeResolver;
   WeatherCurrent?: GQLWeatherCurrentTypeResolver;
+  WeatherLocation?: GQLWeatherLocationTypeResolver;
   WeatherTemperature?: GQLWeatherTemperatureTypeResolver;
   WeatherCondition?: GQLWeatherConditionTypeResolver;
   WeatherWind?: GQLWeatherWindTypeResolver;
@@ -140,13 +140,8 @@ export interface QueryToWeatherResolver<TParent = any, TResult = any> {
 }
 
 export interface GQLWeatherTypeResolver<TParent = any> {
-  location?: WeatherToLocationResolver<TParent>;
   current?: WeatherToCurrentResolver<TParent>;
   forecast?: WeatherToForecastResolver<TParent>;
-}
-
-export interface WeatherToLocationResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
 export interface WeatherToCurrentResolver<TParent = any, TResult = any> {
@@ -160,50 +155,8 @@ export interface WeatherToForecastResolver<TParent = any, TResult = any> {
   (parent: TParent, args: WeatherToForecastArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface GQLWeatherLocationTypeResolver<TParent = any> {
-  name?: WeatherLocationToNameResolver<TParent>;
-  region?: WeatherLocationToRegionResolver<TParent>;
-  country?: WeatherLocationToCountryResolver<TParent>;
-  latitude?: WeatherLocationToLatitudeResolver<TParent>;
-  longitude?: WeatherLocationToLongitudeResolver<TParent>;
-  timezone?: WeatherLocationToTimezoneResolver<TParent>;
-  timeEpoch?: WeatherLocationToTimeEpochResolver<TParent>;
-  timeFormatted?: WeatherLocationToTimeFormattedResolver<TParent>;
-}
-
-export interface WeatherLocationToNameResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface WeatherLocationToRegionResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface WeatherLocationToCountryResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface WeatherLocationToLatitudeResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface WeatherLocationToLongitudeResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface WeatherLocationToTimezoneResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface WeatherLocationToTimeEpochResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface WeatherLocationToTimeFormattedResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
 export interface GQLWeatherCurrentTypeResolver<TParent = any> {
+  location?: WeatherCurrentToLocationResolver<TParent>;
   temperature?: WeatherCurrentToTemperatureResolver<TParent>;
   feelsLike?: WeatherCurrentToFeelsLikeResolver<TParent>;
   condition?: WeatherCurrentToConditionResolver<TParent>;
@@ -215,6 +168,10 @@ export interface GQLWeatherCurrentTypeResolver<TParent = any> {
   cloudCoverPercentage?: WeatherCurrentToCloudCoverPercentageResolver<TParent>;
   isDaytime?: WeatherCurrentToIsDaytimeResolver<TParent>;
   uvIndex?: WeatherCurrentToUvIndexResolver<TParent>;
+}
+
+export interface WeatherCurrentToLocationResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
 export interface WeatherCurrentToTemperatureResolver<TParent = any, TResult = any> {
@@ -258,6 +215,49 @@ export interface WeatherCurrentToIsDaytimeResolver<TParent = any, TResult = any>
 }
 
 export interface WeatherCurrentToUvIndexResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface GQLWeatherLocationTypeResolver<TParent = any> {
+  name?: WeatherLocationToNameResolver<TParent>;
+  region?: WeatherLocationToRegionResolver<TParent>;
+  country?: WeatherLocationToCountryResolver<TParent>;
+  latitude?: WeatherLocationToLatitudeResolver<TParent>;
+  longitude?: WeatherLocationToLongitudeResolver<TParent>;
+  timezone?: WeatherLocationToTimezoneResolver<TParent>;
+  timeEpoch?: WeatherLocationToTimeEpochResolver<TParent>;
+  timeFormatted?: WeatherLocationToTimeFormattedResolver<TParent>;
+}
+
+export interface WeatherLocationToNameResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface WeatherLocationToRegionResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface WeatherLocationToCountryResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface WeatherLocationToLatitudeResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface WeatherLocationToLongitudeResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface WeatherLocationToTimezoneResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface WeatherLocationToTimeEpochResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface WeatherLocationToTimeFormattedResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
