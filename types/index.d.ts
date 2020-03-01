@@ -15,6 +15,7 @@ import { GraphQLResolveInfo } from 'graphql';
 export interface GQLQuery {
   name: string;
   weather: GQLWeather;
+  f1Data: GQLF1Data;
 }
 
 export interface GQLWeather {
@@ -99,6 +100,24 @@ export interface GQLWeatherForecast {
   moonset: string;
 }
 
+export interface GQLF1Data {
+  raceSchedule: GQLF1RaceSchedule;
+}
+
+export interface GQLF1RaceSchedule {
+  numberOfRaces: number;
+  races: Array<GQLF1DataCircuit>;
+}
+
+export interface GQLF1DataCircuit {
+  round: number;
+  raceName: string;
+  circuitName: string;
+  date: string;
+  country: string;
+  location: string;
+}
+
 /*********************************
  *                               *
  *         TYPE RESOLVERS        *
@@ -122,10 +141,14 @@ export interface GQLResolver {
   WeatherPressure?: GQLWeatherPressureTypeResolver;
   WeatherRain?: GQLWeatherRainTypeResolver;
   WeatherForecast?: GQLWeatherForecastTypeResolver;
+  F1Data?: GQLF1DataTypeResolver;
+  F1RaceSchedule?: GQLF1RaceScheduleTypeResolver;
+  F1DataCircuit?: GQLF1DataCircuitTypeResolver;
 }
 export interface GQLQueryTypeResolver<TParent = any> {
   name?: QueryToNameResolver<TParent>;
   weather?: QueryToWeatherResolver<TParent>;
+  f1Data?: QueryToF1DataResolver<TParent>;
 }
 
 export interface QueryToNameResolver<TParent = any, TResult = any> {
@@ -137,6 +160,10 @@ export interface QueryToWeatherArgs {
 }
 export interface QueryToWeatherResolver<TParent = any, TResult = any> {
   (parent: TParent, args: QueryToWeatherArgs, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface QueryToF1DataResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
 export interface GQLWeatherTypeResolver<TParent = any> {
@@ -417,5 +444,62 @@ export interface WeatherForecastToMoonriseResolver<TParent = any, TResult = any>
 }
 
 export interface WeatherForecastToMoonsetResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface GQLF1DataTypeResolver<TParent = any> {
+  raceSchedule?: F1DataToRaceScheduleResolver<TParent>;
+}
+
+export interface F1DataToRaceScheduleArgs {
+  year: string;
+}
+export interface F1DataToRaceScheduleResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: F1DataToRaceScheduleArgs, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface GQLF1RaceScheduleTypeResolver<TParent = any> {
+  numberOfRaces?: F1RaceScheduleToNumberOfRacesResolver<TParent>;
+  races?: F1RaceScheduleToRacesResolver<TParent>;
+}
+
+export interface F1RaceScheduleToNumberOfRacesResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface F1RaceScheduleToRacesResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface GQLF1DataCircuitTypeResolver<TParent = any> {
+  round?: F1DataCircuitToRoundResolver<TParent>;
+  raceName?: F1DataCircuitToRaceNameResolver<TParent>;
+  circuitName?: F1DataCircuitToCircuitNameResolver<TParent>;
+  date?: F1DataCircuitToDateResolver<TParent>;
+  country?: F1DataCircuitToCountryResolver<TParent>;
+  location?: F1DataCircuitToLocationResolver<TParent>;
+}
+
+export interface F1DataCircuitToRoundResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface F1DataCircuitToRaceNameResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface F1DataCircuitToCircuitNameResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface F1DataCircuitToDateResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface F1DataCircuitToCountryResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface F1DataCircuitToLocationResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }

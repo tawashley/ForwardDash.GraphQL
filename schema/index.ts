@@ -2,6 +2,7 @@ import { merge } from 'lodash'
 import { makeExecutableSchema } from 'apollo-server'
 
 import { weatherSchema, weatherResolver } from './weather'
+import { f1DataSchema, f1DataResolver } from './f1Data'
 
 const rootSchema = [
     `
@@ -19,12 +20,14 @@ const rootResolver = {
 
 const typeDefs = [
     ...rootSchema,
-    ...weatherSchema
+    ...weatherSchema,
+    ...f1DataSchema
 ]
 
 const resolvers = merge(
     rootResolver,
-    weatherResolver
+    weatherResolver,
+    f1DataResolver
 )
 
 export const schema = makeExecutableSchema({
