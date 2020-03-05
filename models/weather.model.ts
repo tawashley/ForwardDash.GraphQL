@@ -68,8 +68,8 @@ export const WeatherModel = {
                     fahrenheit: day.mintemp_f
                 },
                 maxTemperature: {
-                    celsius: day.mintemp_c,
-                    fahrenheit: day.mintemp_f
+                    celsius: day.maxtemp_c,
+                    fahrenheit: day.maxtemp_f
                 },
                 averageTemperature: {
                     celsius: day.avgtemp_c,
