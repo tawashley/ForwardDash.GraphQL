@@ -9,7 +9,7 @@ interface WeatherLocation {
   localtime: string;
 }
 
-interface WeatherCondition {
+export interface WeatherCondition {
   text: string;
   icon: string;
   code: number;

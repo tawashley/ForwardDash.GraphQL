@@ -1,6 +1,5 @@
 import { GQLF1RaceSchedule, GQLF1DataCircuit } from '../gql-types'
-
-import { ErgastF1Connector, RaceScheduleResponse } from '../connectors/f1'
+import { ErgastF1Connector, RaceScheduleResponse } from '../connectors/f1Data'
 
 export const F1DataModel = {
     mapRaceScheduleResponse(response: RaceScheduleResponse): GQLF1RaceSchedule  {

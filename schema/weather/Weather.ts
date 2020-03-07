@@ -12,7 +12,8 @@ const weather = `
 
     type WeatherCondition {
         text: String!
-        code: Int!
+        textLong: String!
+        id: String!
         iconSrc: String!
     }
 

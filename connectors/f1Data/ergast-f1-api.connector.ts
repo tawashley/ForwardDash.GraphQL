@@ -1,5 +1,4 @@
 import fetch from 'node-fetch'
-
 import { RaceScheduleResponse } from '../types/ergast-f1'
 
 const makeRequest = (path: string) => {
