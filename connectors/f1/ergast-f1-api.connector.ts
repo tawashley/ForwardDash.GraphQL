@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 
-import { RaceScheduleResponse } from './types/ergast-f1'
+import { RaceScheduleResponse } from '../types/ergast-f1'
 
 const makeRequest = (path: string) => {
     const url = new URL('/', 'https://ergast.com/')

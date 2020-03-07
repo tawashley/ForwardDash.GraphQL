@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 
-import { CurrentWeatherResponse, ForecastResponse } from './types/weather-api'
+import { CurrentWeatherResponse, ForecastResponse } from '../types/weather-api'
 
 const makeRequest = (path: string, location: string, days?: string) => {
     const url = new URL('/', 'https://api.weatherapi.com',)

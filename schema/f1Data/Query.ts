@@ -1,4 +1,4 @@
-import { F1DataToRaceScheduleResolver, F1RaceScheduleToRacesResolver } from '../../types/index'
+import { F1DataToRaceScheduleResolver, F1RaceScheduleToRacesResolver } from '../../gql-types'
 import { F1DataModel } from '../../models/f1Data.model'
 
 export const Query = `

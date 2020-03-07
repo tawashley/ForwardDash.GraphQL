@@ -4,7 +4,7 @@ import { schema } from './index'
 import path from 'path'
 import { generateTypeScriptTypes } from 'graphql-schema-typescript'
 
-const outputFolder = path.join(__dirname, '..', 'types', 'index.d.ts')
+const outputFolder = path.join(__dirname, '..', 'gql-types', 'index.d.ts')
 
 generateTypeScriptTypes(schema, outputFolder, {
     global: false,

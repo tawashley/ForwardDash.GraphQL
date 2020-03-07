@@ -1,4 +1,4 @@
-import { QueryToWeatherResolver, WeatherToCurrentResolver, WeatherToForecastResolver } from '../../types/index'
+import { QueryToWeatherResolver, WeatherToCurrentResolver, WeatherToForecastResolver } from '../../gql-types'
 import { WeatherModel } from '../../models/weather.model'
 
 export const Query = `

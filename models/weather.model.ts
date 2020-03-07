@@ -1,7 +1,6 @@
-import { GQLWeatherCurrent, GQLWeatherForecast } from '../types/index'
+import { GQLWeatherCurrent, GQLWeatherForecast } from '../gql-types'
 
-import { WeatherConnector } from '../connector/weather-api.connector'
-import { CurrentWeatherResponse, ForecastResponse } from '../connector/types/weather-api'
+import { WeatherConnector, CurrentWeatherResponse, ForecastResponse } from '../connectors/weather'
 
 export const WeatherModel = {
     mapCurrentForecastResponse: (response: CurrentWeatherResponse): GQLWeatherCurrent => {
