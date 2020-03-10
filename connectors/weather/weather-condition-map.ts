@@ -201,12 +201,12 @@ export const weatherConditionMap: WeatherConditionMap = {
     },
     1249: {
         id: 'light-sheet-showers',
-        name: 'Light Sleet Showers',
+        name: 'Sleet Showers',
         longName: 'Light sleet showers'
     },
     1252: {
         id: 'moderate-sleet-showers',
-        name: 'Moderate Sleet Showers',
+        name: 'Sleet Showers',
         longName: 'Moderate or heavy sleet showers'
     },
     1255: {
